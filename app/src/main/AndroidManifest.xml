@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myimage">
 
-    <!-- 🌐 Internet (Firebase OTP) -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 📸 Android 13+ media permissions -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <!-- 📁 Android 12 and below -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
+        android:label="My Image"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:allowBackup="true"
-        android:label="MyImageApp"
-        android:theme="@style/Theme.MyImage"
         android:supportsRtl="true">
 
-        <!-- 📂 File Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -30,7 +26,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!-- 🔐 PIN SCREEN (LAUNCHER) -->
         <activity
             android:name=".PinActivity"
             android:exported="true"
@@ -41,25 +36,16 @@
             </intent-filter>
         </activity>
 
-        <!-- 🔁 FORGOT PIN (FIREBASE OTP) -->
-        <activity
-            android:name=".ForgotPinActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- 🔄 CHANGE PIN -->
         <activity
             android:name=".ChangePinActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- 🏠 MAIN SCREEN -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
-        <!-- 🖼 IMAGE VIEW -->
         <activity
             android:name=".ViewImageActivity"
             android:exported="false"
@@ -68,4 +54,3 @@
     </application>
 
 </manifest>
-

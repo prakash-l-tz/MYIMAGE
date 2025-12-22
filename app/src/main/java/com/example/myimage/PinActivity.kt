@@ -19,9 +19,8 @@ class PinActivity : AppCompatActivity() {
         val etPin = findViewById<EditText>(R.id.etPin)
         val btnUnlock = findViewById<Button>(R.id.btnUnlock)
         val btnChangePin = findViewById<Button>(R.id.btnChangePin)
-        val txtForgotPin = findViewById<TextView>(R.id.txtForgotPin)
 
-        // 🔐 UNLOCK
+        // 🔐 UNLOCK / SET PIN
         btnUnlock.setOnClickListener {
             val pin = etPin.text.toString().trim()
             val savedPin = prefs.getString("APP_PIN", null)
@@ -32,10 +31,12 @@ class PinActivity : AppCompatActivity() {
             }
 
             if (savedPin == null) {
+                // First time set PIN
                 prefs.edit().putString("APP_PIN", pin).apply()
                 toast("PIN Set Successfully 💖")
                 openMain()
             } else if (savedPin == pin) {
+                // Correct PIN
                 openMain()
             } else {
                 toast("Wrong PIN 💔")
@@ -43,14 +44,9 @@ class PinActivity : AppCompatActivity() {
             }
         }
 
-        // 🔒 CHANGE PIN (Normal)
+        // 🔒 CHANGE PIN
         btnChangePin.setOnClickListener {
             startActivity(Intent(this, ChangePinActivity::class.java))
-        }
-
-        // ❓ FORGOT PIN (WhatsApp)
-        txtForgotPin.setOnClickListener {
-            startActivity(Intent(this, ForgotPinActivity::class.java))
         }
     }
 
