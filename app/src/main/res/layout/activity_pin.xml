@@ -3,83 +3,104 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_love_gradient">
+    android:background="@drawable/bg">
 
-    <!-- CENTER CONTAINER -->
+    <!-- CENTER CARD -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:background="@drawable/bg_love_card"
+        android:elevation="8dp">
 
         <!-- HEART ICON -->
-        <TextView
+        <ImageView
             android:id="@+id/txtHeart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/diary"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- TITLE -->
+        <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💖"
-            android:textSize="48sp"
-            android:layout_marginBottom="10dp"/>
-
-<!--        &lt;!&ndash; TITLE &ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:id="@+id/txtTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Our Secret Space"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:textSize="22sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_marginBottom="6dp"/>-->
-
-<!--        &lt;!&ndash; SUBTITLE &ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:id="@+id/txtSub"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Enter the love PIN 💕"-->
-<!--            android:textColor="#F5F5F5"-->
-<!--            android:textSize="14sp"-->
-<!--            android:layout_marginBottom="24dp"/>-->
-
-        <!-- PIN INPUT -->
-        <EditText
-            android:id="@+id/etPin"
-            android:layout_width="220dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_pin_box"
-            android:gravity="center"
-            android:hint="****"
-            android:inputType="numberPassword"
-            android:maxLength="4"
+            android:text="Our Secret Space"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:importantForAutofill="no"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <!-- SUBTITLE -->
+        <TextView
+            android:id="@+id/txtSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter your PIN"
+            android:textColor="#666666"
+            android:textSize="14sp"
             android:layout_marginBottom="20dp"/>
+
+        <!-- PIN INPUT -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_pin_box"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp">
+
+            <EditText
+                android:id="@+id/etPin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="****"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"
+                android:importantForAutofill="no"/>
+
+            <ImageView
+                android:id="@+id/btnTogglePin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/eye_invisible"
+                android:padding="4dp"
+                android:contentDescription="Toggle PIN visibility"/>
+
+        </RelativeLayout>
+
 
         <!-- UNLOCK BUTTON -->
         <Button
             android:id="@+id/btnUnlock"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:text="Unlock Love 💞"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="Unlock"
             android:textAllCaps="false"
+            android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button"
-            android:layout_marginBottom="12dp"/>
+            android:background="@drawable/bg_love_button_secondary"
+            android:layout_marginBottom="10dp"/>
 
-        <!-- CHANGE PIN BUTTON -->
+        <!-- CHANGE PIN -->
         <Button
             android:id="@+id/btnChangePin"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:text="Change PIN 🔒"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="Change PIN"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button"/>
-
+            android:background="@drawable/bg_love_button_secondary"/>
 
     </LinearLayout>
 

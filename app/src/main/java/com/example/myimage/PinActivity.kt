@@ -3,12 +3,14 @@ package com.example.myimage
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class PinActivity : AppCompatActivity() {
 
     private lateinit var prefs: SharedPreferences
+    private var isPinVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,24 @@ class PinActivity : AppCompatActivity() {
         val etPin = findViewById<EditText>(R.id.etPin)
         val btnUnlock = findViewById<Button>(R.id.btnUnlock)
         val btnChangePin = findViewById<Button>(R.id.btnChangePin)
+        val btnTogglePin = findViewById<ImageView>(R.id.btnTogglePin)
+
+        // 👁️ SHOW / HIDE PIN
+        btnTogglePin.setOnClickListener {
+            isPinVisible = !isPinVisible
+
+            if (isPinVisible) {
+                etPin.transformationMethod = null   // show PIN
+                btnTogglePin.setImageResource(R.drawable.eye_visible)
+            } else {
+                etPin.transformationMethod =
+                    android.text.method.PasswordTransformationMethod.getInstance()
+                btnTogglePin.setImageResource(R.drawable.eye_invisible)
+            }
+
+            etPin.setSelection(etPin.text.length)
+        }
+
 
         // 🔐 UNLOCK / SET PIN
         btnUnlock.setOnClickListener {
@@ -31,12 +51,10 @@ class PinActivity : AppCompatActivity() {
             }
 
             if (savedPin == null) {
-                // First time set PIN
                 prefs.edit().putString("APP_PIN", pin).apply()
                 toast("PIN Set Successfully 💖")
                 openMain()
             } else if (savedPin == pin) {
-                // Correct PIN
                 openMain()
             } else {
                 toast("Wrong PIN 💔")
