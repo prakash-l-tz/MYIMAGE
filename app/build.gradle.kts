@@ -40,7 +40,7 @@ android {
 
 dependencies {
 
-    // Core Android (SAFE with AGP 8.5.2)
+    // ✅ Core (SDK 34 compatible)
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
@@ -57,9 +57,11 @@ dependencies {
     // Biometric
     implementation("androidx.biometric:biometric:1.1.0")
 
+    // PhotoView
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.github.chrisbanes:PhotoView:2.3.0")
 }

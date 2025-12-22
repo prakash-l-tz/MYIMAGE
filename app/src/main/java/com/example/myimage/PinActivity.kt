@@ -22,7 +22,11 @@ class PinActivity : AppCompatActivity() {
         val btnUnlock = findViewById<Button>(R.id.btnUnlock)
         val btnChangePin = findViewById<Button>(R.id.btnChangePin)
         val btnTogglePin = findViewById<ImageView>(R.id.btnTogglePin)
+        val txtForgot = findViewById<ImageView>(R.id.txtForgot)
 
+        txtForgot.setOnClickListener {
+            startActivity(Intent(this, OtpActivity::class.java))
+        }
         // 👁️ SHOW / HIDE PIN
         btnTogglePin.setOnClickListener {
             isPinVisible = !isPinVisible

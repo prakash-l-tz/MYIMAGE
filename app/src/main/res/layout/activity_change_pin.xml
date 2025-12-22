@@ -155,7 +155,7 @@
             android:id="@+id/btnSavePin"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:text="Save New PIN"
+            android:text="Save New PIN 💖️"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="@android:color/white"
