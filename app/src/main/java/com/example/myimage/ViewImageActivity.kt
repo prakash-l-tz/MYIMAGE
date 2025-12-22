@@ -1,14 +1,10 @@
 package com.example.myimage
 
-
-import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.MediaController
-import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import java.io.File
+import androidx.viewpager2.widget.ViewPager2
 
 class ViewImageActivity : AppCompatActivity() {
 
@@ -16,28 +12,62 @@ class ViewImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_image)
 
-        val imageView = findViewById<ImageView>(R.id.fullImageView)
-        val videoView = findViewById<VideoView>(R.id.videoView)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        val btnPrev = findViewById<ImageView>(R.id.btnPrev)
+        val btnNext = findViewById<ImageView>(R.id.btnNext)
+        val btnPlayPause = findViewById<ImageView>(R.id.btnPlayPaus)
 
-        val path = intent.getStringExtra("image_path") ?: return
-        val file = File(path)
+        val mediaList =
+            intent.getStringArrayListExtra("media_list") ?: return
 
-        if (file.extension.lowercase() == "mp4") {
-            // ✅ SHOW VIDEO
-            videoView.visibility = VideoView.VISIBLE
-            imageView.visibility = ImageView.GONE
+        val startPosition =
+            intent.getIntExtra("position", 0)
 
-            videoView.setVideoURI(Uri.fromFile(file))
-            videoView.setMediaController(MediaController(this))
-            videoView.start()
-        } else {
-            // ✅ SHOW IMAGE
-            imageView.visibility = ImageView.VISIBLE
-            videoView.visibility = VideoView.GONE
+        val adapter = ImagePagerAdapter(mediaList)
+        viewPager.adapter = adapter
+        viewPager.setCurrentItem(startPosition, false)
 
-            Glide.with(this)
-                .load(file)
-                .into(imageView)
+        updateControls(adapter, startPosition, btnPrev, btnNext, btnPlayPause)
+
+        viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updateControls(adapter, position, btnPrev, btnNext, btnPlayPause)
+                btnPlayPause.setImageResource(android.R.drawable.ic_media_pause)
+            }
+        })
+
+        btnPrev.setOnClickListener {
+            if (viewPager.currentItem > 0) viewPager.currentItem--
         }
+
+        btnNext.setOnClickListener {
+            if (viewPager.currentItem < mediaList.size - 1) viewPager.currentItem++
+        }
+
+        btnPlayPause.setOnClickListener {
+            val isPlaying = adapter.togglePlayPause()
+            btnPlayPause.setImageResource(
+                if (isPlaying)
+                    android.R.drawable.ic_media_pause
+                else
+                    android.R.drawable.ic_media_play
+            )
+        }
+    }
+
+    private fun updateControls(
+        adapter: ImagePagerAdapter,
+        position: Int,
+        btnPrev: ImageView,
+        btnNext: ImageView,
+        btnPlayPause: ImageView
+    ) {
+        val visible = if (adapter.isCurrentItemVideo(position))
+            View.VISIBLE else View.GONE
+
+        btnPrev.visibility = visible
+        btnNext.visibility = visible
+        btnPlayPause.visibility = visible
     }
 }
