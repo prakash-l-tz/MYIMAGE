@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 🌐 Internet (Firebase OTP) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 📸 Android 13+ media permissions -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- 📁 Android 12 and below -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:allowBackup="true"
+        android:label="MyImageApp"
+        android:theme="@style/Theme.MyImage"
+        android:supportsRtl="true">
+
+        <!-- 📂 File Provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- 🔐 PIN SCREEN (LAUNCHER) -->
+        <activity
+            android:name=".PinActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 🔁 FORGOT PIN (FIREBASE OTP) -->
+        <activity
+            android:name=".ForgotPinActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 🔄 CHANGE PIN -->
+        <activity
+            android:name=".ChangePinActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 🏠 MAIN SCREEN -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 🖼 IMAGE VIEW -->
+        <activity
+            android:name=".ViewImageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>
+
