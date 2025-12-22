@@ -8,6 +8,7 @@ import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.github.chrisbanes.photoview.PhotoView
 import java.io.File
 
 class ViewImageActivity : AppCompatActivity() {
@@ -16,23 +17,23 @@ class ViewImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_image)
 
-        val imageView = findViewById<ImageView>(R.id.fullImageView)
+        val imageView = findViewById<PhotoView>(R.id.fullImageView)
         val videoView = findViewById<VideoView>(R.id.videoView)
 
         val path = intent.getStringExtra("image_path") ?: return
         val file = File(path)
 
         if (file.extension.lowercase() == "mp4") {
-            // ✅ SHOW VIDEO
+            // SHOW VIDEO
             videoView.visibility = VideoView.VISIBLE
-            imageView.visibility = ImageView.GONE
+            imageView.visibility = PhotoView.GONE
 
             videoView.setVideoURI(Uri.fromFile(file))
             videoView.setMediaController(MediaController(this))
             videoView.start()
         } else {
-            // ✅ SHOW IMAGE
-            imageView.visibility = ImageView.VISIBLE
+            // SHOW IMAGE WITH ZOOM
+            imageView.visibility = PhotoView.VISIBLE
             videoView.visibility = VideoView.GONE
 
             Glide.with(this)
@@ -41,3 +42,4 @@ class ViewImageActivity : AppCompatActivity() {
         }
     }
 }
+
