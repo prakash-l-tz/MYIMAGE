@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myimage">
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
-        android:label="My Image"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:allowBackup="true"
-        android:supportsRtl="true">
+        android:label="My Image"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".Calculator"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PinActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -27,30 +38,17 @@
         </provider>
 
         <activity
-            android:name=".PinActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".ChangePinActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ViewImageActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>
