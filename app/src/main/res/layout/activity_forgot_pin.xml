@@ -1,133 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="#FFFFFF">
 
-    <!-- CENTER CARD -->
-    <LinearLayout
-        android:layout_width="300dp"
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
+        android:text="Change PIN 🔐"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="24dp" />
+
+    <!-- New PIN -->
+    <EditText
+        android:id="@+id/etNewPin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Enter New PIN"
+        android:inputType="numberPassword"
+        android:maxLength="4"
         android:gravity="center"
-        android:padding="24dp"
-        android:background="@drawable/bg_love_card"
-        android:elevation="8dp">
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"
+       />
 
-        <!-- ICON -->
-        <ImageView
-            android:id="@+id/txtHeart"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:src="@drawable/pass"
-            android:layout_marginBottom="12dp"/>
+    <!-- Confirm PIN -->
+    <EditText
+        android:id="@+id/etConfirmPin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Confirm New PIN"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginBottom="24dp" />
 
-        <!-- TITLE -->
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change New PIN"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp"/>
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSavePin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Save New PIN ✅"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_love_button_secondary" />
 
-        <!-- SUBTITLE -->
-        <TextView
-            android:id="@+id/txtSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Secure your private space"
-            android:textColor="#666666"
-            android:textSize="14sp"
-            android:layout_marginBottom="20dp"/>
-
-
-
-        <!-- NEW PIN -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_pin_box"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp">
-
-            <EditText
-                android:id="@+id/etNewPin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toStartOf="@id/btnTogglePin2"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:hint="New PIN"
-                android:inputType="numberPassword"
-                android:maxLength="4"
-                android:textColor="@android:color/black"
-                android:textSize="13sp"
-                android:importantForAutofill="no"/>
-
-            <ImageView
-                android:id="@+id/btnTogglePin2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/eye_invisible"
-                android:padding="4dp"
-                android:contentDescription="Toggle PIN visibility"/>
-
-        </RelativeLayout>
-
-        <!-- CONFIRM PIN -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_pin_box"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp">
-
-            <EditText
-                android:id="@+id/etConfirmPin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toStartOf="@id/btnTogglePin3"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:hint="Confirm PIN"
-                android:inputType="numberPassword"
-                android:maxLength="4"
-                android:textColor="@android:color/black"
-                android:textSize="13sp"
-                android:importantForAutofill="no"/>
-
-            <ImageView
-                android:id="@+id/btnTogglePin3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/eye_invisible"
-                android:padding="4dp"
-                android:contentDescription="Toggle PIN visibility"/>
-
-        </RelativeLayout>
-
-        <!-- SAVE BUTTON -->
-        <Button
-            android:id="@+id/btnSavePin"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:text="Save New PIN 💖️"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button_secondary"/>
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

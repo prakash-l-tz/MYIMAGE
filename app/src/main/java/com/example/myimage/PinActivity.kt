@@ -3,7 +3,7 @@ package com.example.myimage
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -22,29 +22,29 @@ class PinActivity : AppCompatActivity() {
         val btnUnlock = findViewById<Button>(R.id.btnUnlock)
         val btnChangePin = findViewById<Button>(R.id.btnChangePin)
         val btnTogglePin = findViewById<ImageView>(R.id.btnTogglePin)
-        val txtForgot = findViewById<ImageView>(R.id.txtForgot)
+        val imgForgot = findViewById<TextView>(R.id.txtForgot)
 
-        txtForgot.setOnClickListener {
+        // 👉 Forgot PIN → OTP Screen
+        imgForgot.setOnClickListener {
             startActivity(Intent(this, OtpActivity::class.java))
         }
-        // 👁️ SHOW / HIDE PIN
+
+        // 👁️ Show / Hide PIN
         btnTogglePin.setOnClickListener {
             isPinVisible = !isPinVisible
 
             if (isPinVisible) {
-                etPin.transformationMethod = null   // show PIN
+                etPin.transformationMethod = null
                 btnTogglePin.setImageResource(R.drawable.eye_visible)
             } else {
-                etPin.transformationMethod =
-                    android.text.method.PasswordTransformationMethod.getInstance()
+                etPin.transformationMethod = PasswordTransformationMethod.getInstance()
                 btnTogglePin.setImageResource(R.drawable.eye_invisible)
             }
 
             etPin.setSelection(etPin.text.length)
         }
 
-
-        // 🔐 UNLOCK / SET PIN
+        // 🔐 Unlock or Set PIN
         btnUnlock.setOnClickListener {
             val pin = etPin.text.toString().trim()
             val savedPin = prefs.getString("APP_PIN", null)
@@ -56,17 +56,17 @@ class PinActivity : AppCompatActivity() {
 
             if (savedPin == null) {
                 prefs.edit().putString("APP_PIN", pin).apply()
-                toast("PIN Set Successfully 💖")
+                toast("PIN Set Successfully")
                 openMain()
             } else if (savedPin == pin) {
                 openMain()
             } else {
-                toast("Wrong PIN 💔")
+                toast("Wrong PIN")
                 etPin.text.clear()
             }
         }
 
-        // 🔒 CHANGE PIN
+        // 🔁 Change PIN
         btnChangePin.setOnClickListener {
             startActivity(Intent(this, ChangePinActivity::class.java))
         }

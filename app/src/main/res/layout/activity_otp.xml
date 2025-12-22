@@ -1,123 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <!-- CENTER CARD -->
-    <LinearLayout
-        android:layout_width="320dp"
+    <EditText
+        android:id="@+id/etMobile"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Mobile Number"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnSendOtp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
-        android:background="@drawable/bg_love_card"
-        android:elevation="8dp">
+        android:text="Send OTP" />
 
-        <!-- ICON -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="📱"
-            android:textSize="42sp"
-            android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
-        <!-- TITLE -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mobile Verification"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="6dp" />
-
-        <!-- SUB TITLE -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter mobile number to receive OTP"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginBottom="20dp" />
-
-        <!-- MOBILE NUMBER -->
-        <EditText
-            android:id="@+id/etMobile"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pin_box"
-            android:hint="Mobile Number"
-            android:gravity="center"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp" />
-
-        <!-- SEND OTP -->
-        <Button
-            android:id="@+id/btnSendOtp"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:text="Send OTP 📩"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button_secondary"
-            android:layout_marginBottom="20dp" />
-
-        <!-- OTP LAYOUT (HIDDEN INITIALLY) -->
-        <LinearLayout
-            android:id="@+id/layoutOtp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:visibility="visible"
-            android:layout_marginBottom="16dp">
-
-            <EditText
-                android:id="@+id/otp1"
-                style="@style/OtpBoxStyle" />
-
-            <EditText
-                android:id="@+id/otp2"
-                style="@style/OtpBoxStyle" />
-
-            <EditText
-                android:id="@+id/otp3"
-                style="@style/OtpBoxStyle" />
-
-            <EditText
-                android:id="@+id/otp4"
-                style="@style/OtpBoxStyle" />
-        </LinearLayout>
-
-        <!-- VERIFY BUTTON -->
-        <Button
-            android:id="@+id/btnVerifyOtp"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:text="Verify OTP ✅"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button_secondary"
-            android:visibility="visible"
-            android:layout_marginBottom="12dp" />
-
-        <!-- RESEND -->
-        <TextView
-            android:id="@+id/txtResend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Resend OTP"
-            android:textSize="14sp"
-            android:textColor="#E91E63"
-            android:visibility="visible" />
+        <EditText android:id="@+id/otp1" style="@style/OtpBoxStyle"/>
+        <EditText android:id="@+id/otp2" style="@style/OtpBoxStyle"/>
+        <EditText android:id="@+id/otp3" style="@style/OtpBoxStyle"/>
+        <EditText android:id="@+id/otp4" style="@style/OtpBoxStyle"/>
 
     </LinearLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnVerifyOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify OTP" />
+
+</LinearLayout>
