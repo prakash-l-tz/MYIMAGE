@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000">
 
-    <!-- ZOOMABLE IMAGE -->
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/fullImageView"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:scaleType="fitCenter" />
+        android:layout_height="match_parent"/>
 
-    <!-- VIDEO -->
-    <VideoView
-        android:id="@+id/videoView"
+    <!-- BOTTOM CONTROL BAR -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="#66000000"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/btnPrev"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_media_previous"/>
+
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/btnPlayPaus"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_media_pause"
+            android:visibility="gone"/>
+
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/btnNext"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_media_next"/>
+    </LinearLayout>
 
 </FrameLayout>
