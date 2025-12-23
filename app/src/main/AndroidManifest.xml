@@ -14,13 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".OtpActivity"
+            android:name=".ResetPINActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPIN"
-            android:exported="false" />
-        <activity
-            android:name=".Calculator"
+            android:name=".CalculatorActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

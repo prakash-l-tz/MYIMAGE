@@ -31,7 +31,7 @@ class PinActivity : AppCompatActivity() {
 
         // 🔁 Forgot PIN → Reset Screen
         txtForgot.setOnClickListener {
-            startActivity(Intent(this, ForgotPIN::class.java))
+            startActivity(Intent(this, ResetPINActivity::class.java))
         }
 
         // 👁 Show / Hide PIN
