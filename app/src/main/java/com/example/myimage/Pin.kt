@@ -8,7 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 
-class PinActivity : AppCompatActivity() {
+class Pin : AppCompatActivity() {
 
     private lateinit var prefs: SharedPreferences
 
@@ -31,7 +31,7 @@ class PinActivity : AppCompatActivity() {
 
         // 🔁 Forgot PIN → Reset Screen
         txtForgot.setOnClickListener {
-            startActivity(Intent(this, ForgotPIN::class.java))
+            startActivity(Intent(this, ResetPIN::class.java))
         }
 
         // 👁 Show / Hide PIN
@@ -85,7 +85,7 @@ class PinActivity : AppCompatActivity() {
 
         // 🔄 Change PIN
         btnChangePin.setOnClickListener {
-            startActivity(Intent(this, ChangePinActivity::class.java))
+            startActivity(Intent(this, ChangePin::class.java))
         }
     }
     private fun disablePinUI() {

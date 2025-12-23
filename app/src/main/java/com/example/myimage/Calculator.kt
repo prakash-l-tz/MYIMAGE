@@ -32,7 +32,7 @@ class Calculator : AppCompatActivity() {
 
         turnCalculatorOff()
         vault.setOnLongClickListener(OnLongClickListener { v: View? ->
-            val intent: Intent = Intent(this@Calculator, PinActivity::class.java)
+            val intent: Intent = Intent(this@Calculator, Pin::class.java)
             startActivity(intent)
             true // VERY IMPORTANT
         })

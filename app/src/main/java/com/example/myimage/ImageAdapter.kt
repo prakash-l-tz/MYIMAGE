@@ -39,7 +39,7 @@ class ImageAdapter(
 
         // ✅ CLICK → OPEN VIEWPAGER (IMAGE + VIDEO)
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ViewImageActivity::class.java)
+            val intent = Intent(holder.itemView.context, ViewImage::class.java)
 
             intent.putStringArrayListExtra(
                 "media_list",

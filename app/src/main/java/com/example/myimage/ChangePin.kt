@@ -8,7 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 
-class ChangePinActivity : AppCompatActivity() {
+class ChangePin : AppCompatActivity() {
 
     private lateinit var prefs: SharedPreferences
 
@@ -101,7 +101,7 @@ class ChangePinActivity : AppCompatActivity() {
             prefs.edit().putString("APP_PIN", newPin).apply()
             toast("PIN updated successfully 🔐")
 
-            startActivity(Intent(this, PinActivity::class.java))
+            startActivity(Intent(this, Pin::class.java))
             finish()
         }
     }

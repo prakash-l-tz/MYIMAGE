@@ -14,10 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".OtpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ForgotPIN"
+            android:name=".ResetPIN"
             android:exported="false" />
         <activity
             android:name=".Calculator"
@@ -30,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PinActivity"
+            android:name=".Pin"
             android:exported="false" />
 
         <provider
@@ -44,7 +41,7 @@
         </provider>
 
         <activity
-            android:name=".ChangePinActivity"
+            android:name=".ChangePin"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -52,7 +49,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewImageActivity"
+            android:name=".ViewImage"
             android:exported="false"
             android:screenOrientation="portrait" />
     </application>
