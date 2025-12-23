@@ -6,43 +6,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_love_gradient"
+    android:fitsSystemWindows="true"
     tools:context=".Vault_Main">
 
-    <TextView
+    <!-- 🔹 TOP BAR -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="#1A237E"
-        android:gravity="center"
-        android:text="VAULT"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Vault"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            app:cardElevation="12dp">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="20dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp">
 
+                <!-- 🔹 ROW 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <!-- Photos -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/photo"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -54,22 +66,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="Photos"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
 
-                    <Space
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content" />
-
+                    <!-- Videos -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/video"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -81,22 +92,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="Videos"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-
-                    <Space
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content" />
-
-
+                    <!-- Audios -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -108,26 +117,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="Audios"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
-
-
                     </LinearLayout>
-
                 </LinearLayout>
 
+                <!-- 🔹 ROW 2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
+                    <!-- Settings -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/Setting"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -139,21 +151,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="Settings"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
-
                     </LinearLayout>
 
-                    <Space
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content" />
-
+                    <!-- Rate Us -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/Rate_us"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -165,43 +177,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
                             android:text="Rate us"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-
-                    <!--                    <Space-->
-                    <!--                        android:layout_width="50dp"-->
-                    <!--                        android:layout_height="wrap_content" />-->
-
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:orientation="vertical"-->
-                    <!--                        android:padding="12dp">-->
-
-                    <!--                        <ImageView-->
-                    <!--                            android:layout_width="60dp"-->
-                    <!--                            android:layout_height="60dp"-->
-                    <!--                            android:src="@drawable/music" />-->
-
-                    <!--                        <TextView-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:layout_gravity="center"-->
-                    <!--                            android:layout_marginVertical="10dp"-->
-                    <!--                            android:text="AUDIOS"-->
-                    <!--                            android:textColor="@color/black"-->
-                    <!--                            android:textStyle="bold" />-->
-
-
-                    <!--                    </LinearLayout>-->
-
+                    <!-- Empty space for symmetry -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
                 </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

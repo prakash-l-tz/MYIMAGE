@@ -13,17 +13,17 @@ import com.google.android.material.appbar.MaterialToolbar
 import java.io.File
 import java.io.FileOutputStream
 
-class PhotoActivity : AppCompatActivity() {
+class VideoActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ImageAdapter
-    private val imageFiles = mutableListOf<File>()
+    private lateinit var adapter: VideoAdapter
+    private val videoFiles = mutableListOf<File>()
 
-    private val PICK_IMAGE = 101
+    private val PICK_VIDEO = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo)
+        setContentView(R.layout.activity_video)
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -32,45 +32,45 @@ class PhotoActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        adapter = ImageAdapter(imageFiles) { file ->
+        adapter = VideoAdapter(videoFiles) { file ->
             confirmDelete(file)
         }
         recyclerView.adapter = adapter
 
-        // ✅ PICK ONLY IMAGES
-        findViewById<Button>(R.id.btnAddImage).setOnClickListener {
+        // ✅ PICK ONLY VIDEOS
+        findViewById<Button>(R.id.btnAddVideo).setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
+                type = "video/*"
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }
-            startActivityForResult(intent, PICK_IMAGE)
+            startActivityForResult(intent, PICK_VIDEO)
         }
 
-        loadImages()
+        loadVideos()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode != PICK_IMAGE || resultCode != RESULT_OK || data == null) return
+        if (requestCode != PICK_VIDEO || resultCode != RESULT_OK || data == null) return
 
         if (data.clipData != null) {
             for (i in 0 until data.clipData!!.itemCount) {
-                saveImage(data.clipData!!.getItemAt(i).uri)
+                saveVideo(data.clipData!!.getItemAt(i).uri)
             }
         } else if (data.data != null) {
-            saveImage(data.data!!)
+            saveVideo(data.data!!)
         }
 
-        loadImages()
+        loadVideos()
     }
 
-    // ✅ SAVE IMAGE ONLY
-    private fun saveImage(uri: Uri) {
-        val dir = File(filesDir, "my_images")
+    // ✅ SAVE VIDEO ONLY
+    private fun saveVideo(uri: Uri) {
+        val dir = File(filesDir, "my_videos")
         if (!dir.exists()) dir.mkdirs()
 
-        val file = File(dir, "IMG_${System.currentTimeMillis()}.jpg")
+        val file = File(dir, "VID_${System.currentTimeMillis()}.mp4")
         contentResolver.openInputStream(uri)?.use { input ->
             FileOutputStream(file).use { output ->
                 input.copyTo(output)
@@ -78,23 +78,23 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ LOAD ONLY IMAGES
-    private fun loadImages() {
-        imageFiles.clear()
-        File(filesDir, "my_images").listFiles()?.let {
-            imageFiles.addAll(it)
+    // ✅ LOAD ONLY VIDEOS
+    private fun loadVideos() {
+        videoFiles.clear()
+        File(filesDir, "my_videos").listFiles()?.let {
+            videoFiles.addAll(it)
         }
         adapter.notifyDataSetChanged()
     }
 
     private fun confirmDelete(file: File) {
         AlertDialog.Builder(this)
-            .setTitle("Delete Image")
-            .setMessage("Do you want to delete this image?")
+            .setTitle("Delete Video")
+            .setMessage("Do you want to delete this video?")
             .setPositiveButton("Delete") { _, _ ->
                 if (file.delete()) {
-                    loadImages()
-                    Toast.makeText(this, "Image Deleted", Toast.LENGTH_SHORT).show()
+                    loadVideos()
+                    Toast.makeText(this, "Video Deleted", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)

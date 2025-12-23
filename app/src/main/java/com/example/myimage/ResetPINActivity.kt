@@ -38,7 +38,6 @@ class ResetPINActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_reset_pin)
 
         auth = FirebaseAuth.getInstance()
