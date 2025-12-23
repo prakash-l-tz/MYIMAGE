@@ -18,7 +18,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class ForgotPIN : AppCompatActivity() {
+class ResetPINActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -39,7 +39,7 @@ class ForgotPIN : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_forgot_pin)
+        setContentView(R.layout.activity_reset_pin)
 
         auth = FirebaseAuth.getInstance()
         prefs = getSharedPreferences("MY_IMAGE_PREF", MODE_PRIVATE)
@@ -59,6 +59,7 @@ class ForgotPIN : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
@@ -129,9 +130,10 @@ class ForgotPIN : AppCompatActivity() {
                     .getResult(ApiException::class.java)
 
                 firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: Exception) {
-                toast("Google Sign-In Failed")
+            } catch (e: ApiException) {
+                toast("Google Sign-In Failed (${e.statusCode})")
             }
+
         }
     }
 

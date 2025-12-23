@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class Calculator : AppCompatActivity() {
+class CalculatorActivity : AppCompatActivity() {
 
     private lateinit var screen: TextView
     private lateinit var vault: TextView
@@ -32,7 +32,7 @@ class Calculator : AppCompatActivity() {
 
         turnCalculatorOff()
         vault.setOnLongClickListener(OnLongClickListener { v: View? ->
-            val intent: Intent = Intent(this@Calculator, PinActivity::class.java)
+            val intent: Intent = Intent(this@CalculatorActivity, PinActivity::class.java)
             startActivity(intent)
             true // VERY IMPORTANT
         })
