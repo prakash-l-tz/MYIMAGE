@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#1A237E"
         app:navigationIcon="@drawable/ic_back"
-        app:title="Photo"
+        app:title="Video"
         app:titleCentered="true"
         app:titleTextColor="@android:color/white" />
 
@@ -24,10 +24,10 @@
         android:padding="12dp">
 
         <Button
-            android:id="@+id/btnAddImage"
+            android:id="@+id/btnAddVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Image"
+            android:text="Add Video"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
         <!-- RecyclerView -->
