@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg_love_gradient">
 
     <!-- CENTER CARD -->
     <LinearLayout
@@ -64,7 +64,7 @@
                 android:inputType="numberPassword"
                 android:maxLength="4"
                 android:textColor="@android:color/black"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:importantForAutofill="no"/>
 
             <ImageView
@@ -74,7 +74,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/eye_invisible"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:contentDescription="Toggle PIN visibility"/>
 
         </RelativeLayout>
@@ -99,6 +99,8 @@
             android:layout_height="46dp"
             android:text="Change PIN 🔒"
             android:textAllCaps="false"
+            android:textStyle="bold"
+
             android:textColor="@android:color/white"
             android:background="@drawable/bg_love_button_secondary"/>
 
@@ -106,10 +108,10 @@
             android:id="@+id/txtForgot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Forgot PIN 🔑"
+            android:text="Forgot PIN ?"
             android:textColor="#FF0000"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:textSize="12sp" />
 <!--        <ImageView-->
 <!--            android:id="@+id/txtForgot"-->
