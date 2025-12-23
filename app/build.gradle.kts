@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    // Core
+    // Core Android (STABLE with SDK 34)
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
@@ -53,7 +53,6 @@ dependencies {
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation(libs.androidx.activity)
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     // Biometric
@@ -62,13 +61,11 @@ dependencies {
     // PhotoView
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
 
-    // Firebase BOM (controls all versions)
+    // Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
 
-    // ✅ Firebase Auth (ONLY ONE)
+    // Firebase
     implementation("com.google.firebase:firebase-auth")
-
-    // Firebase Analytics
     implementation("com.google.firebase:firebase-analytics")
 
     // Google Sign-In

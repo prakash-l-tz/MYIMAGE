@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-            android:name=".Photo"
+            android:name=".PhotoActivity"
             android:exported="false" />
         <activity
             android:name=".ResetPINActivity"
@@ -48,7 +48,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Vault_Main"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

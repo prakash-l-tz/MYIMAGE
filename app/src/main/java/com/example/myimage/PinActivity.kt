@@ -109,7 +109,7 @@ class PinActivity : AppCompatActivity() {
     }
 
     private fun openMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Vault_Main::class.java))
         finish()
     }
 

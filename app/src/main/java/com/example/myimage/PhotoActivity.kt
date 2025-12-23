@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 import java.io.FileOutputStream
 
-class Photo : AppCompatActivity() {
+class PhotoActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ImageAdapter
