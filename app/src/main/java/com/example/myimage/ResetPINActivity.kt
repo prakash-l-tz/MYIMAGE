@@ -60,6 +60,7 @@ class ResetPINActivity : AppCompatActivity() {
             .requestEmail()
             .build()
 
+
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 👁 NEW PIN TOGGLE
@@ -129,9 +130,10 @@ class ResetPINActivity : AppCompatActivity() {
                     .getResult(ApiException::class.java)
 
                 firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: Exception) {
-                toast("Google Sign-In Failed")
+            } catch (e: ApiException) {
+                toast("Google Sign-In Failed (${e.statusCode})")
             }
+
         }
     }
 
