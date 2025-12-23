@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,7 +41,7 @@ android {
 
 dependencies {
 
-    // Core Android (SAFE with AGP 8.5.2)
+    // Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
@@ -57,9 +58,23 @@ dependencies {
     // Biometric
     implementation("androidx.biometric:biometric:1.1.0")
 
+    // PhotoView
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
+    // Firebase BOM (controls all versions)
+    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+
+    // ✅ Firebase Auth (ONLY ONE)
+    implementation("com.google.firebase:firebase-auth")
+
+    // Firebase Analytics
+    implementation("com.google.firebase:firebase-analytics")
+
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.github.chrisbanes:PhotoView:2.3.0")
 }

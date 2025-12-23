@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 
 class ChangePinActivity : AppCompatActivity() {
 
@@ -14,6 +15,10 @@ class ChangePinActivity : AppCompatActivity() {
     private var oldPinVisible = false
     private var newPinVisible = false
     private var confirmPinVisible = false
+    private lateinit var btnTogglePin1: ImageView
+    private lateinit var btnTogglePin2: ImageView
+    private lateinit var btnTogglePin3: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +31,12 @@ class ChangePinActivity : AppCompatActivity() {
         val etNewPin = findViewById<EditText>(R.id.etNewPin)
         val etConfirmPin = findViewById<EditText>(R.id.etConfirmPin)
 
-        val btnTogglePin1 = findViewById<ImageView>(R.id.btnTogglePin1)
-        val btnTogglePin2 = findViewById<ImageView>(R.id.btnTogglePin2)
-        val btnTogglePin3 = findViewById<ImageView>(R.id.btnTogglePin3)
+        btnTogglePin1 = findViewById(R.id.btnTogglePin1)
+        btnTogglePin2 = findViewById(R.id.btnTogglePin2)
+        btnTogglePin3 = findViewById(R.id.btnTogglePin3)
 
         val btnSavePin = findViewById<Button>(R.id.btnSavePin)
+        disablePinUI()
 
         // 👁 OLD PIN TOGGLE
         btnTogglePin1.setOnClickListener {
@@ -38,18 +44,33 @@ class ChangePinActivity : AppCompatActivity() {
             togglePin(etOldPin, btnTogglePin1, oldPinVisible)
         }
 
-        // 👁 NEW PIN TOGGLE
+        // 👁 NEW PIN
         btnTogglePin2.setOnClickListener {
             newPinVisible = !newPinVisible
             togglePin(etNewPin, btnTogglePin2, newPinVisible)
         }
 
-        // 👁 CONFIRM PIN TOGGLE
+        // 👁 CONFIRM PIN
         btnTogglePin3.setOnClickListener {
             confirmPinVisible = !confirmPinVisible
             togglePin(etConfirmPin, btnTogglePin3, confirmPinVisible)
         }
 
+        // ✍ Enable toggle only when text exists
+        etOldPin.addTextChangedListener {
+            btnTogglePin1.isEnabled = !it.isNullOrEmpty()
+            btnTogglePin1.alpha = if (it.isNullOrEmpty()) 0.4f else 1f
+        }
+
+        etNewPin.addTextChangedListener {
+            btnTogglePin2.isEnabled = !it.isNullOrEmpty()
+            btnTogglePin2.alpha = if (it.isNullOrEmpty()) 0.4f else 1f
+        }
+
+        etConfirmPin.addTextChangedListener {
+            btnTogglePin3.isEnabled = !it.isNullOrEmpty()
+            btnTogglePin3.alpha = if (it.isNullOrEmpty()) 0.4f else 1f
+        }
         // 💾 SAVE PIN
         btnSavePin.setOnClickListener {
 
@@ -84,7 +105,15 @@ class ChangePinActivity : AppCompatActivity() {
             finish()
         }
     }
+    private fun disablePinUI() {
+        btnTogglePin1.isEnabled = false
+        btnTogglePin2.isEnabled = false
+        btnTogglePin3.isEnabled = false
 
+        btnTogglePin1.alpha = 0.4f
+        btnTogglePin2.alpha = 0.4f
+        btnTogglePin3.alpha = 0.4f
+    }
     // 🔁 Reusable function
     private fun togglePin(
         editText: EditText,
@@ -105,4 +134,5 @@ class ChangePinActivity : AppCompatActivity() {
     private fun toast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
 }
