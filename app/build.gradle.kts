@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    // ✅ Core Android (SDK 34 SAFE)
+    // Core Android (SDK 34 SAFE)
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.2")
@@ -63,8 +63,6 @@ dependencies {
 
     // Firebase BOM
     implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
-
-    // Firebase
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
 

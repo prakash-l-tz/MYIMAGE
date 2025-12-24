@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_love_gradient"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".Vault_Main">
 
     <!-- 🔹 TOP BAR -->
@@ -15,10 +15,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#1A237E"
+        android:background="@android:color/transparent"
         app:navigationIcon="@drawable/ic_back"
-        app:title="Vault"
+        app:title="VAULT"
         app:titleCentered="true"
+        app:titleTextAppearance="@style/ToolbarTitleBold"
         app:titleTextColor="@android:color/white" />
 
 
