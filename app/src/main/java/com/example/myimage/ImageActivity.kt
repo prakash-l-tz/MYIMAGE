@@ -13,7 +13,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import java.io.File
 import java.io.FileOutputStream
 
-class PhotoActivity : AppCompatActivity() {
+class ImageActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ImageAdapter

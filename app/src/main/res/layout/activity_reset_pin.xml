@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_love_gradient">
-
+    <!-- 🔹 TOP BAR -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="RESET PIN"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/ToolbarTitleBold"
+        app:titleTextColor="@android:color/white" />
     <!-- CENTER CARD -->
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
         android:background="@drawable/bg_love_card"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <!-- ICON -->
         <ImageView
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:src="@drawable/pass"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/pass" />
 
         <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="Reset PIN 🔐"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp"/>
+            android:textStyle="bold" />
 
         <!-- SUBTITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:text="Verify with Google to continue"
             android:textColor="#666666"
-            android:textSize="14sp"
-            android:layout_marginBottom="20dp"/>
+            android:textSize="14sp" />
 
         <!-- GOOGLE SIGN IN -->
         <Button
             android:id="@+id/btnGoogleSignIn"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:text="Sign in with Google"
-            android:textAllCaps="false"
-            android:textStyle="bold"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FFFFFF"
-            android:textColor="#000000"/>
+            android:text="Sign in with Google"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <!-- NEW PIN -->
         <RelativeLayout
@@ -71,10 +81,10 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="New PIN"
+                android:importantForAutofill="no"
                 android:inputType="numberPassword"
                 android:maxLength="4"
-                android:textSize="16sp"
-                android:importantForAutofill="no"/>
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/btnTogglePin"
@@ -83,7 +93,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="2dp"
-                android:src="@drawable/eye_invisible"/>
+                android:src="@drawable/eye_invisible" />
         </RelativeLayout>
 
         <!-- CONFIRM PIN -->
@@ -103,10 +113,10 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:hint="Confirm PIN"
+                android:importantForAutofill="no"
                 android:inputType="numberPassword"
                 android:maxLength="4"
-                android:textSize="16sp"
-                android:importantForAutofill="no"/>
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/btnTogglePins"
@@ -115,7 +125,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="2dp"
-                android:src="@drawable/eye_invisible"/>
+                android:src="@drawable/eye_invisible" />
         </RelativeLayout>
 
         <!-- SAVE BUTTON -->
@@ -123,11 +133,11 @@
             android:id="@+id/btnSavePin"
             android:layout_width="match_parent"
             android:layout_height="46dp"
+            android:background="@drawable/bg_love_button_secondary"
             android:text="Save New PIN 💖"
             android:textAllCaps="false"
-            android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:background="@drawable/bg_love_button_secondary"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

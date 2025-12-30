@@ -39,7 +39,7 @@ class VideoAdapter(
 
         // ▶ CLICK → PLAY VIDEO
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, VideoActivity::class.java)
+            val intent = Intent(holder.itemView.context, ViewVideoActivity::class.java)
             intent.putExtra("video_path", file.absolutePath)
             holder.itemView.context.startActivity(intent)
         }

@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.appbar.MaterialToolbar
 
 class ChangePinActivity : AppCompatActivity() {
 
@@ -25,6 +26,9 @@ class ChangePinActivity : AppCompatActivity() {
         setContentView(R.layout.activity_change_pin)
 
         prefs = getSharedPreferences("MY_IMAGE_PREF", MODE_PRIVATE)
+
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         // ✅ Correct view types
         val etOldPin = findViewById<EditText>(R.id.etOldPin)
@@ -103,6 +107,9 @@ class ChangePinActivity : AppCompatActivity() {
 
             startActivity(Intent(this, PinActivity::class.java))
             finish()
+        }
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
     private fun disablePinUI() {

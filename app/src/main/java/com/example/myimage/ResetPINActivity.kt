@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
@@ -39,6 +40,9 @@ class ResetPINActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_pin)
+
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         auth = FirebaseAuth.getInstance()
         prefs = getSharedPreferences("MY_IMAGE_PREF", MODE_PRIVATE)
@@ -116,6 +120,9 @@ class ResetPINActivity : AppCompatActivity() {
                 }
             }
         }
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     // 🔹 GOOGLE RESULT
@@ -191,4 +198,5 @@ class ResetPINActivity : AppCompatActivity() {
     private fun toast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
 }
