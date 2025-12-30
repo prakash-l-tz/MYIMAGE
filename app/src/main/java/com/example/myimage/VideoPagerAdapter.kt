@@ -9,7 +9,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.MediaController
 import android.widget.VideoView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
@@ -23,7 +22,6 @@ class VideoPagerAdapter(
     inner class VideoVH(view: View) : RecyclerView.ViewHolder(view) {
         val videoView: VideoView = view.findViewById(R.id.videoView)
         val backBtn: ImageView = view.findViewById(R.id.btnBack)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoVH {
@@ -44,51 +42,24 @@ class VideoPagerAdapter(
         val mediaController = MediaController(holder.videoView.context)
         mediaController.setAnchorView(holder.videoView)
 
-//        holder.videoView.setOnClickListener {
-//            (holder.itemView.context as? AppCompatActivity)
-//                ?.onBackPressedDispatcher
-//                ?.onBackPressed()
-//        }
-
         holder.videoView.apply {
             setMediaController(mediaController)
             setVideoURI(Uri.fromFile(file))
 
             setOnPreparedListener { mp ->
                 mp.isLooping = true
-
-                val videoW = mp.videoWidth
-                val videoH = mp.videoHeight
-
-                val parentW = (parent as View).width
-                val parentH = (parent as View).height
-
-                val videoRatio = videoW.toFloat() / videoH
-                val screenRatio = parentW.toFloat() / parentH
-
-                val params = FrameLayout.LayoutParams(0, 0)
-                params.gravity = Gravity.CENTER
-
-                if (videoRatio > screenRatio) {
-                    params.width = parentW
-                    params.height = (parentW / videoRatio).toInt()
-                } else {
-                    params.height = parentH
-                    params.width = (parentH * videoRatio).toInt()
-                }
-
-                layoutParams = params
                 start()
             }
 
             requestFocus()
         }
 
-
-        currentVideo = holder.videoView
         holder.backBtn.setOnClickListener {
             onBack()
+
         }
+
+        currentVideo = holder.videoView
     }
 
     fun stopVideo() {
