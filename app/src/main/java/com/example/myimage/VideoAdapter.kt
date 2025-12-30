@@ -28,23 +28,24 @@ class VideoAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val file = files[position]
 
-        // ▶ Always show play icon (video only)
         holder.playIcon.visibility = View.VISIBLE
 
-        // 🎞 Load video thumbnail
         Glide.with(holder.thumbnail.context)
             .load(file)
             .centerCrop()
             .into(holder.thumbnail)
 
-        // ▶ CLICK → PLAY VIDEO
+        // ▶ OPEN VIDEO PLAYER
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ViewVideoActivity::class.java)
-            intent.putExtra("video_path", file.absolutePath)
+            intent.putStringArrayListExtra(
+                "video_list",
+                ArrayList(files.map { it.absolutePath })
+            )
+            intent.putExtra("position", position)
             holder.itemView.context.startActivity(intent)
         }
 
-        // 🗑 LONG PRESS → DELETE
         holder.itemView.setOnLongClickListener {
             onDelete(file)
             true
