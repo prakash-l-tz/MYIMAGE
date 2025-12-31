@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_love_gradient"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <!-- Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         app:navigationIcon="@drawable/ic_back"
-        app:title="PHOTO"
+        app:title="AUDIO"
         app:titleCentered="true"
         app:titleTextAppearance="@style/ToolbarTitleBold"
         app:titleTextColor="@android:color/white" />
 
+    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- Add Audio Button -->
         <Button
-            android:id="@+id/btnAddImage"
+            android:id="@+id/btnAddAudio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Image"
+            android:text="ADD AUDIO"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
-
-        <!-- RecyclerView -->
+        <!-- Audio List -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/AudioSave"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
-            android:layout_weight="1" />
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:overScrollMode="never" />
+
     </LinearLayout>
+
 </LinearLayout>
