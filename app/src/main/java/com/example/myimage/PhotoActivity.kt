@@ -1,6 +1,5 @@
 package com.example.myimage
 
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,75 +9,68 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import java.io.File
 import java.io.FileOutputStream
 
-class MainActivity : AppCompatActivity() {
+class PhotoActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ImageAdapter
-    private val mediaFiles = mutableListOf<File>()
+    private val imageFiles = mutableListOf<File>()
 
-    private val PICK_MEDIA = 101
+    private val PICK_IMAGE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_photo)
+
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        adapter = ImageAdapter(mediaFiles) { file ->
+        adapter = ImageAdapter(imageFiles) { file ->
             confirmDelete(file)
         }
         recyclerView.adapter = adapter
 
-
+        // ✅ PICK ONLY IMAGES
         findViewById<Button>(R.id.btnAddImage).setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "*/*"
-                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*"))
+                type = "image/*"
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }
-            startActivityForResult(Intent.createChooser(intent, "Select Media"), PICK_MEDIA)
+            startActivityForResult(intent, PICK_IMAGE)
         }
 
-        loadMedia()
+        loadImages()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode != PICK_MEDIA || resultCode != RESULT_OK || data == null) return
+        if (requestCode != PICK_IMAGE || resultCode != RESULT_OK || data == null) return
 
         if (data.clipData != null) {
             for (i in 0 until data.clipData!!.itemCount) {
-                saveMedia(data.clipData!!.getItemAt(i).uri)
+                saveImage(data.clipData!!.getItemAt(i).uri)
             }
         } else if (data.data != null) {
-            saveMedia(data.data!!)
+            saveImage(data.data!!)
         }
 
-        loadMedia()
+        loadImages()
     }
 
-    private fun saveMedia(uri: Uri) {
-        val type = contentResolver.getType(uri) ?: return
-
-        when {
-            type.startsWith("image") ->
-                saveFile(uri, "my_images", "IMG_", ".jpg")
-            type.startsWith("video") ->
-                saveFile(uri, "my_videos", "VID_", ".mp4")
-        }
-    }
-
-    private fun saveFile(uri: Uri, folder: String, prefix: String, ext: String) {
-        val dir = File(filesDir, folder)
+    // ✅ SAVE IMAGE ONLY
+    private fun saveImage(uri: Uri) {
+        val dir = File(filesDir, "my_images")
         if (!dir.exists()) dir.mkdirs()
 
-        val file = File(dir, "$prefix${System.currentTimeMillis()}$ext")
-
+        val file = File(dir, "IMG_${System.currentTimeMillis()}.jpg")
         contentResolver.openInputStream(uri)?.use { input ->
             FileOutputStream(file).use { output ->
                 input.copyTo(output)
@@ -86,21 +78,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadMedia() {
-        mediaFiles.clear()
-        File(filesDir, "my_images").listFiles()?.let { mediaFiles.addAll(it) }
-        File(filesDir, "my_videos").listFiles()?.let { mediaFiles.addAll(it) }
+    // ✅ LOAD ONLY IMAGES
+    private fun loadImages() {
+        imageFiles.clear()
+        File(filesDir, "my_images").listFiles()?.let {
+            imageFiles.addAll(it)
+        }
         adapter.notifyDataSetChanged()
     }
 
     private fun confirmDelete(file: File) {
         AlertDialog.Builder(this)
-            .setTitle("Delete")
-            .setMessage("Delete this file?")
+            .setTitle("Delete Image")
+            .setMessage("Do you want to delete this image?")
             .setPositiveButton("Delete") { _, _ ->
                 if (file.delete()) {
-                    loadMedia()
-                    Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+                    loadImages()
+                    Toast.makeText(this, "Image Deleted", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancel", null)
