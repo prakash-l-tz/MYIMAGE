@@ -23,7 +23,11 @@ class ViewImageActivity : AppCompatActivity() {
         val startPosition =
             intent.getIntExtra("position", 0)
 
-        val adapter = ImagePagerAdapter(mediaList)
+        // ✅ FIX: pass onBack lambda
+        val adapter = ImagePagerAdapter(mediaList) {
+            finish() // back button action
+        }
+
         viewPager.adapter = adapter
         viewPager.setCurrentItem(startPosition, false)
 
@@ -42,7 +46,8 @@ class ViewImageActivity : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
-            if (viewPager.currentItem < mediaList.size - 1) viewPager.currentItem++
+            if (viewPager.currentItem < mediaList.size - 1)
+                viewPager.currentItem++
         }
 
         btnPlayPause.setOnClickListener {
@@ -63,8 +68,9 @@ class ViewImageActivity : AppCompatActivity() {
         btnNext: ImageView,
         btnPlayPause: ImageView
     ) {
-        val visible = if (adapter.isCurrentItemVideo(position))
-            View.VISIBLE else View.GONE
+        val visible =
+            if (adapter.isCurrentItemVideo(position))
+                View.VISIBLE else View.GONE
 
         btnPrev.visibility = visible
         btnNext.visibility = visible
