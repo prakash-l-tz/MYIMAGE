@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:label="My Image"
         android:supportsRtl="true"
+        android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".ViewVideoActivity"
