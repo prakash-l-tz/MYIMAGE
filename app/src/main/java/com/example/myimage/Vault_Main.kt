@@ -24,7 +24,7 @@ class Vault_Main : AppCompatActivity() {
             startActivity(intent)
         }
         photoLayout.setOnClickListener {
-            val intent = Intent(this, ImageActivity::class.java)
+            val intent = Intent(this, PhotoActivity::class.java)
             startActivity(intent)
         }
         videoLayout.setOnClickListener {

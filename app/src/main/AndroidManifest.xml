@@ -25,7 +25,7 @@
             android:name=".SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".ImageActivity"
+            android:name=".PhotoActivity"
             android:exported="false" />
         <activity
             android:name=".ResetPINActivity"
