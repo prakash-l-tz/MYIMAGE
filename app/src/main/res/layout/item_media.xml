@@ -4,17 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#000">
 
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="top|start"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_back"
-        android:contentDescription="Back"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp" />
-
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
@@ -28,4 +17,18 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:keepScreenOn="true" />
+
+    <!-- BACK BUTTON (ALWAYS ON TOP) -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|start"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_play_circle"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:tint="@android:color/white"
+        android:clickable="true"
+        android:focusable="true" />
 </FrameLayout>
