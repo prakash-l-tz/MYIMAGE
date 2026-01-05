@@ -18,6 +18,7 @@ class Vault_Main : AppCompatActivity() {
         val photoLayout = findViewById<LinearLayout>(R.id.photo)
         val videoLayout = findViewById<LinearLayout>(R.id.video)
         val audioLayout = findViewById<LinearLayout>(R.id.Audio)
+        val googleLayout = findViewById<LinearLayout>(R.id.google)
 
 
         settingLayout.setOnClickListener {
@@ -34,6 +35,10 @@ class Vault_Main : AppCompatActivity() {
         }
         audioLayout.setOnClickListener {
             val intent = Intent(this, AudioActivity::class.java)
+            startActivity(intent)
+        }
+        googleLayout.setOnClickListener {
+            val intent = Intent(this, GoogleActivity::class.java)
             startActivity(intent)
         }
         toolbar.setNavigationOnClickListener {

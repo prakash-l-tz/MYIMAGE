@@ -141,7 +141,7 @@
                         android:layout_weight="1"
                         android:clickable="true"
                         android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:padding="12dp">
 
@@ -185,11 +185,35 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/google"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/google" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Google"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                     <!-- Empty space for symmetry -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>

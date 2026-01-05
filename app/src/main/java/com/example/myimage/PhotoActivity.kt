@@ -1,11 +1,13 @@
 package com.example.myimage
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,88 +18,73 @@ import java.io.FileOutputStream
 class PhotoActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ImageAdapter
-    private val imageFiles = mutableListOf<File>()
+    private lateinit var btnAddImage: Button
 
-    private val PICK_IMAGE = 101
+    // Image picker launcher
+    private val imagePicker =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let { saveImageToFolder(it) }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo)
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
-
         recyclerView = findViewById(R.id.recyclerView)
+        btnAddImage = findViewById(R.id.btnAddImage)
+
+        // Toolbar back
+        toolbar.setNavigationOnClickListener { finish() }
+
+        // RecyclerView basic setup
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        adapter = ImageAdapter(imageFiles) { file ->
-            confirmDelete(file)
-        }
-        recyclerView.adapter = adapter
-
-        // ✅ PICK ONLY IMAGES
-        findViewById<Button>(R.id.btnAddImage).setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            }
-            startActivityForResult(intent, PICK_IMAGE)
+        // Add Image button
+        btnAddImage.setOnClickListener {
+            imagePicker.launch("image/*")
         }
 
-        loadImages()
+        // Ensure folder exists
+        createImageFolder()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode != PICK_IMAGE || resultCode != RESULT_OK || data == null) return
-
-        if (data.clipData != null) {
-            for (i in 0 until data.clipData!!.itemCount) {
-                saveImage(data.clipData!!.getItemAt(i).uri)
-            }
-        } else if (data.data != null) {
-            saveImage(data.data!!)
+    // Create folder
+    private fun createImageFolder(): File {
+        val folder = File(getExternalFilesDir(null), "MyImages")
+        if (!folder.exists()) {
+            folder.mkdirs()
         }
-
-        loadImages()
+        return folder
     }
 
-    // ✅ SAVE IMAGE ONLY
-    private fun saveImage(uri: Uri) {
-        val dir = File(filesDir, "my_images")
-        if (!dir.exists()) dir.mkdirs()
+    // Save selected image
+    private fun saveImageToFolder(uri: Uri) {
+        val folder = createImageFolder()
+        val fileName = getFileName(uri)
+        val file = File(folder, fileName)
 
-        val file = File(dir, "IMG_${System.currentTimeMillis()}.jpg")
         contentResolver.openInputStream(uri)?.use { input ->
             FileOutputStream(file).use { output ->
                 input.copyTo(output)
             }
         }
+
+        Toast.makeText(this, "Image saved", Toast.LENGTH_SHORT).show()
+
+        // Later: refresh RecyclerView here
     }
 
-    // ✅ LOAD ONLY IMAGES
-    private fun loadImages() {
-        imageFiles.clear()
-        File(filesDir, "my_images").listFiles()?.let {
-            imageFiles.addAll(it)
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun confirmDelete(file: File) {
-        AlertDialog.Builder(this)
-            .setTitle("Delete Image")
-            .setMessage("Do you want to delete this image?")
-            .setPositiveButton("Delete") { _, _ ->
-                if (file.delete()) {
-                    loadImages()
-                    Toast.makeText(this, "Image Deleted", Toast.LENGTH_SHORT).show()
-                }
+    // Get original file name
+    private fun getFileName(uri: Uri): String {
+        var name = "IMG_${System.currentTimeMillis()}.jpg"
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            val index = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            if (it.moveToFirst() && index != -1) {
+                name = it.getString(index)
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+        }
+        return name
     }
 }
