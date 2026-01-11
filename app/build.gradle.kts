@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    // Core Android (SDK 34 SAFE — DO NOT UPGRADE)
+    // Core Android (SDK 34 SAFE)
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.2")
@@ -61,7 +61,7 @@ dependencies {
     // PhotoView
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
 
-    // Firebase BOM (SDK 34 SAFE)
+    // Firebase (SDK 34 SAFE)
     implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
