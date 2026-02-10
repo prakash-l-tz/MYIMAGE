@@ -21,6 +21,7 @@ class PhotoActivity : AppCompatActivity() {
 
     private val PICK_IMAGE = 101
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo)
