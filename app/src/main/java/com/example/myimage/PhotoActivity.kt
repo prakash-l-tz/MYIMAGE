@@ -36,10 +36,10 @@ class PhotoActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
-        // ✅ PICK ONLY IMAGES
         findViewById<Button>(R.id.btnAddImage).setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
+
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }
             startActivityForResult(intent, PICK_IMAGE)
@@ -49,6 +49,7 @@ class PhotoActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode != PICK_IMAGE || resultCode != RESULT_OK || data == null) return
