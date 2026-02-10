@@ -61,7 +61,7 @@ dependencies {
     // PhotoView
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
 
-    // Firebase BOM
+    // Firebase (SDK 34 SAFE)
     implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
@@ -74,3 +74,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
+
