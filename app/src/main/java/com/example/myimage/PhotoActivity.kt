@@ -18,7 +18,6 @@ class PhotoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ImageAdapter
     private val imageFiles = mutableListOf<File>()
-
     private val PICK_IMAGE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
