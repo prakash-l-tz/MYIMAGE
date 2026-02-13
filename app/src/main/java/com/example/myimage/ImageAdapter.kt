@@ -5,18 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.io.File
 
 class ImageAdapter(
-    private val files: List<File>,
-    private val onDelete: (File) -> Unit
+    private val files: MutableList<File>,
+    private val onAction: (List<File>, Boolean) -> Unit
 ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+
+    private val selectedItems = mutableSetOf<File>()
+    var isSelectionMode = false
+        private set
+
+    val selectedItemCount: Int
+        get() = selectedItems.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val videoIcon: ImageView = view.findViewById(R.id.videoIcon)
+        val selectionOverlay: View = view.findViewById(R.id.selectionOverlay)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +38,6 @@ class ImageAdapter(
         val file = files[position]
         val isVideo = file.extension.lowercase() == "mp4"
 
-        // ▶ show play icon on video
         holder.videoIcon.visibility = if (isVideo) View.VISIBLE else View.GONE
 
         Glide.with(holder.imageView.context)
@@ -37,25 +45,48 @@ class ImageAdapter(
             .centerCrop()
             .into(holder.imageView)
 
-        // ✅ CLICK → OPEN VIEWPAGER (IMAGE + VIDEO)
+        holder.selectionOverlay.isVisible = selectedItems.contains(file)
+
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ViewImageActivity::class.java)
-
-            intent.putStringArrayListExtra(
-                "media_list",
-                ArrayList(files.map { it.absolutePath })
-            )
-
-            intent.putExtra("position", holder.bindingAdapterPosition)
-
-            holder.itemView.context.startActivity(intent)
+            if (isSelectionMode) {
+                toggleSelection(file)
+            } else {
+                val intent = Intent(holder.itemView.context, ViewImageActivity::class.java)
+                intent.putStringArrayListExtra("media_list", ArrayList(files.map { it.absolutePath }))
+                intent.putExtra("position", holder.bindingAdapterPosition)
+                holder.itemView.context.startActivity(intent)
+            }
         }
 
-        // 🗑 LONG CLICK → DELETE
         holder.itemView.setOnLongClickListener {
-            onDelete(file)
+            if (!isSelectionMode) {
+                isSelectionMode = true
+                onAction(emptyList(), true)
+            }
+            toggleSelection(file)
             true
         }
+    }
+
+    private fun toggleSelection(file: File) {
+        if (selectedItems.contains(file)) {
+            selectedItems.remove(file)
+        } else {
+            selectedItems.add(file)
+        }
+        notifyItemChanged(files.indexOf(file))
+        onAction(selectedItems.toList(), true)
+    }
+
+    fun deleteSelected() {
+        onAction(selectedItems.toList(), false)
+    }
+
+    fun clearSelection() {
+        selectedItems.clear()
+        isSelectionMode = false
+        notifyDataSetChanged()
+        onAction(emptyList(), false)
     }
 
     override fun getItemCount() = files.size
