@@ -5,18 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.io.File
 
 class VideoAdapter(
-    private val files: List<File>,
-    private val onDelete: (File) -> Unit
+    private val files: MutableList<File>,
+    private val onAction: (List<File>, Boolean) -> Unit
 ) : RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
 
+    private val selectedItems = mutableSetOf<File>()
+    var isSelectionMode = false
+        private set
+
+    val selectedItemCount: Int
+        get() = selectedItems.size
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val thumbnail: ImageView = view.findViewById(R.id.imageView)
-        val playIcon: ImageView = view.findViewById(R.id.videoIcon)
+        val imageView: ImageView = view.findViewById(R.id.imageView)
+        val videoIcon: ImageView = view.findViewById(R.id.videoIcon)
+        val selectionOverlay: View = view.findViewById(R.id.selectionOverlay)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,30 +36,58 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val file = files[position]
+        val isVideo = file.extension.lowercase() == "mp4"
 
-        holder.playIcon.visibility = View.VISIBLE
+        holder.videoIcon.visibility = if (isVideo) View.VISIBLE else View.GONE
 
-        Glide.with(holder.thumbnail.context)
+        Glide.with(holder.imageView.context)
             .load(file)
             .centerCrop()
-            .into(holder.thumbnail)
+            .into(holder.imageView)
 
-        // ▶ OPEN VIDEO PLAYER
+        holder.selectionOverlay.isVisible = selectedItems.contains(file)
+
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ViewVideoActivity::class.java)
-            intent.putStringArrayListExtra(
-                "video_list",
-                ArrayList(files.map { it.absolutePath })
-            )
-            intent.putExtra("position", position)
-            holder.itemView.context.startActivity(intent)
+            if (isSelectionMode) {
+                toggleSelection(file)
+            } else {
+                val intent = Intent(holder.itemView.context, ViewVideoActivity::class.java)
+                intent.putStringArrayListExtra("video_list", ArrayList(files.map { it.absolutePath }))
+                intent.putExtra("position", holder.bindingAdapterPosition)
+                holder.itemView.context.startActivity(intent)
+            }
         }
 
         holder.itemView.setOnLongClickListener {
-            onDelete(file)
+            if (!isSelectionMode) {
+                isSelectionMode = true
+                onAction(emptyList(), true)
+            }
+            toggleSelection(file)
             true
         }
     }
 
-    override fun getItemCount(): Int = files.size
+    private fun toggleSelection(file: File) {
+        if (selectedItems.contains(file)) {
+            selectedItems.remove(file)
+        } else {
+            selectedItems.add(file)
+        }
+        notifyItemChanged(files.indexOf(file))
+        onAction(selectedItems.toList(), true)
+    }
+
+    fun deleteSelected() {
+        onAction(selectedItems.toList(), false)
+    }
+
+    fun clearSelection() {
+        selectedItems.clear()
+        isSelectionMode = false
+        notifyDataSetChanged()
+        onAction(emptyList(), false)
+    }
+
+    override fun getItemCount() = files.size
 }
