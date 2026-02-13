@@ -16,5 +16,5 @@ dependencyResolutionManagement {
 }
 
 
-rootProject.name = "MYIMAGE"
+rootProject.name = "Calculator App"
 include(":app")
