@@ -3,8 +3,11 @@ package com.example.myimage
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +21,7 @@ class VideoActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: VideoAdapter
     private val videoFiles = mutableListOf<File>()
+    private lateinit var toolbar: MaterialToolbar
 
     private val PICK_VIDEO = 102
 
@@ -25,19 +29,39 @@ class VideoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
 
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (adapter.isSelectionMode) {
+                    adapter.clearSelection()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
-        adapter = VideoAdapter(videoFiles) { file ->
-            confirmDelete(file)
+        adapter = VideoAdapter(videoFiles) { files, isSelectionMode ->
+            if (isSelectionMode) {
+                toolbar.title = "${adapter.selectedItemCount} selected"
+                toolbar.menu.findItem(R.id.action_delete).isVisible = adapter.selectedItemCount > 0
+            } else {
+                if (files.isNotEmpty()) {
+                    confirmDelete(files)
+                } else {
+                    toolbar.title = "VIDEO"
+                    toolbar.menu.findItem(R.id.action_delete)?.isVisible = false
+                }
+            }
         }
         recyclerView.adapter = adapter
 
-        // ✅ PICK ONLY VIDEOS
         findViewById<Button>(R.id.btnAddVideo).setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "video/*"
@@ -47,6 +71,21 @@ class VideoActivity : AppCompatActivity() {
         }
 
         loadVideos()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_video, menu)
+        menu?.findItem(R.id.action_delete)?.isVisible = false
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_delete) {
+            adapter.deleteSelected()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -65,7 +104,6 @@ class VideoActivity : AppCompatActivity() {
         loadVideos()
     }
 
-    // ✅ SAVE VIDEO ONLY
     private fun saveVideo(uri: Uri) {
         val dir = File(filesDir, "my_videos")
         if (!dir.exists()) dir.mkdirs()
@@ -78,7 +116,6 @@ class VideoActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ LOAD ONLY VIDEOS
     private fun loadVideos() {
         videoFiles.clear()
         File(filesDir, "my_videos").listFiles()?.let {
@@ -87,15 +124,15 @@ class VideoActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun confirmDelete(file: File) {
+    private fun confirmDelete(files: List<File>) {
         AlertDialog.Builder(this)
-            .setTitle("Delete Video")
-            .setMessage("Do you want to delete this video?")
+            .setTitle("Delete Videos")
+            .setMessage("Do you want to delete ${files.size} videos?")
             .setPositiveButton("Delete") { _, _ ->
-                if (file.delete()) {
-                    loadVideos()
-                    Toast.makeText(this, "Video Deleted", Toast.LENGTH_SHORT).show()
-                }
+                files.forEach { it.delete() }
+                loadVideos()
+                adapter.clearSelection()
+                Toast.makeText(this, "Videos Deleted", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Cancel", null)
             .show()
