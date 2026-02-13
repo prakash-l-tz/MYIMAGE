@@ -37,7 +37,6 @@ class PhotoActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
-        // ✅ PICK ONLY IMAGES
         findViewById<Button>(R.id.btnAddImage).setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
@@ -65,7 +64,6 @@ class PhotoActivity : AppCompatActivity() {
         loadImages()
     }
 
-    // ✅ SAVE IMAGE ONLY
     private fun saveImage(uri: Uri) {
         val dir = File(filesDir, "my_images")
         if (!dir.exists()) dir.mkdirs()
@@ -78,7 +76,6 @@ class PhotoActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ LOAD ONLY IMAGES
     private fun loadImages() {
         imageFiles.clear()
         File(filesDir, "my_images").listFiles()?.let {
