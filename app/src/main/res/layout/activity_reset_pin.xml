@@ -53,22 +53,50 @@
             android:textSize="14sp" />
 
         <!-- GOOGLE SIGN IN -->
+        <!-- EMAIL -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_pin_box"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"/>
+
+        <!-- SEND OTP -->
         <Button
-            android:id="@+id/btnGoogleSignIn"
+            android:id="@+id/btnSendOtp"
             android:layout_width="match_parent"
             android:layout_height="46dp"
+            android:text="Send OTP"
+            android:textAllCaps="false"/>
+
+        <!-- OTP -->
+        <EditText
+            android:id="@+id/etOtp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Sign in with Google"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            android:background="@drawable/bg_pin_box"
+            android:hint="Enter OTP"
+            android:inputType="number"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnVerify"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="Verify OTP"
+            android:textAllCaps="false"/>
 
         <!-- NEW PIN -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_pin_box"
             android:paddingStart="12dp"
             android:paddingEnd="12dp">
